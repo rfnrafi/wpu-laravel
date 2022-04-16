@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\PostsController;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index')->with(["title" => "Tampilan awal"]);
+});
+
+Route::get("/posts" ,[PostsController::class , "index"]);
+Route::get("/posts/{post:slug}" ,[PostsController::class , "show"]);
+
+Route::get("/{user:name}",function(User $user){
+    return view("users.single")->with([
+        "title" => "profile of $user->name",
+        "user" => $user,
+    ]);
+});
+
+Route::get("/categories/{category:slug}",function(Category $category){
+    return view("categories.index")->with([
+        "title" => "$category->name",
+        "category" => $category
+    ]);
 });
