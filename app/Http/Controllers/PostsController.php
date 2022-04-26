@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -14,7 +17,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view("posts.index")->with(["title" => "blog", "posts" => Post::all()]);
+
+        return view("posts.index")->with(["title" => "blog", "posts" => Post::filter(request(["search","category"]))->with(["user","category"])->latest()->get(), "sub_title" => "All Post"]);
     }
 
     /**
@@ -35,12 +39,21 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create([
-            'title' => "judul 1",
-            "slug" => "judul-1",
-            "excerpt" => "lorem 12sd asfe",
-            "description" => "lorem 12sd asfe gra as weefwadf"
+
+        $validData = $request->validate([
+            "title" => "required",
+            "description" => "required",
+            "category_id" => "required"
+
         ]);
+
+        $validData["user_id"] = Auth()->user()->id;
+
+        $validData["excerpt"] = Str::limit(strip_tags($validData["description"]),15);
+
+        Post::create($validData);
+
+        return redirect("/posts")->with("message","Posts success added");
     }
 
     /**
@@ -51,7 +64,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return view("posts.single")->with(["title"=>$post->title,"post"=>$post]);
+        return view("posts.single")->with(["title"=>$post->title,"post"=>$post,]);
     }
 
     /**
