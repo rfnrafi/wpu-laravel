@@ -15,4 +15,8 @@ class DashboardController extends Controller
     public function createPost(){
         return view("dashboard.post")->with(["title"=>"Create a Post"])->with(["categories" => Category::all()]);
     }
+    // METHOD TO CREATE A CATEGORY
+    public function createCategory(){
+        return view("dashboard.category")->with(["title"=>"Create a Category"]);
+    }
 }
