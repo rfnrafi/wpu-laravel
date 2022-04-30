@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId("category_id");
             $table->string("title");
             $table->string("slug")->unique();
+            $table->string("image_path")->nullable();
             $table->text("excerpt");
             $table->longText("description");
             $table->timestamp("published_at")->nullable();

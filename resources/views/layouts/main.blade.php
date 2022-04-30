@@ -31,6 +31,7 @@
 
                     @auth
                     <a class="font-semibold text-lg text-gray-600 w-full lg:w-auto" href="/login"><p class="w-full duration-300 hover:bg-gray-600 hover:text-white px-4 py-2 rounded-md">{{auth()->user()->name}}</p></a>
+                    <a class="font-semibold text-lg text-gray-600 w-full lg:w-auto" href="/dashboard"><p class="w-full duration-300 hover:bg-gray-600 hover:text-white px-4 py-2 rounded-md">Dashboard</p></a>
                     <a class="font-semibold text-lg text-gray-600 w-full lg:w-auto" href="/logout"><p class="w-full duration-300 hover:bg-gray-600 hover:text-white px-4 py-2 rounded-md">Logout</p></a>
                     @endauth
 
