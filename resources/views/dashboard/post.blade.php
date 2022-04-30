@@ -26,6 +26,9 @@
                 @endif
             </select>
 
+            <label for="image_path">Image</label>
+            <input id="image_path" name="image_path" type="file">
+
 
             <input id="description" type="hidden" name="description">
             <trix-editor input="description"></trix-editor>

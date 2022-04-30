@@ -44,12 +44,15 @@ class PostsController extends Controller
             "title" => "required",
             "description" => "required",
             "category_id" => "required"
+            "image_path" => "required"
 
         ]);
 
         $validData["user_id"] = Auth()->user()->id;
 
         $validData["excerpt"] = Str::limit(strip_tags($validData["description"]),15);
+
+        $validData["image_path"] = Storage::putFile('post_image', $request->file("image"));
 
         Post::create($validData);
 
